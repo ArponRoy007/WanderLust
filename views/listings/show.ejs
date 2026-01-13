@@ -7,7 +7,9 @@
     </div>
 
     <div class="card col-6 offset-3 show-card listing-card">
-      <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
+      <img
+        src="<%= listing.image && listing.image.url ? listing.image.url : 'https://images.unsplash.com/photo-1625505826533-5c80aca7d157?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60' %>"
+        class="card-img-top show-img" alt="listing_image">
       <div class="card-body">
         <p class="card-text">
           <br>
@@ -22,13 +24,13 @@
     <br />
 
     <div class="col-6 offset-3 d-flex justify-content-between mb-5">
-    
+
       <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark edit-btn">Edit</a>
-  
+
       <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
         <button class="btn btn-dark">Delete</button>
       </form>
-    
+
     </div>
 
   </div>
