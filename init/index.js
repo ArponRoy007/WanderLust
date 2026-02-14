@@ -1,8 +1,13 @@
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
+
 const mongoose = require("mongoose");
 const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+//const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.ATLASTDB_URL;
 
 main()
   .then(() => {
@@ -20,7 +25,18 @@ const initDB = async () => {
   await Listing.deleteMany({});
   initData.data = initData.data.map((obj) => ({
     ...obj,
-    owner: "6971eba3e061182cf7da1302",
+    owner: "6990bed42bd2866eb5906143",
+
+    geometry: {
+      type: "Point",
+      coordinates: [77.209, 28.6139],
+    },
+    image: {
+      url:
+        obj.image.url ||
+        "https://images.unsplash.com/photo-1625505826533-5c80aca7d157?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60",
+      filename: "listingimage",
+    },
   }));
   await Listing.insertMany(initData.data);
   console.log("data was initialized");
